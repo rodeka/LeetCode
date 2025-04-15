@@ -6,3 +6,5 @@ using namespace std;
 
 #include <vector>
 #include <algorithm>
+#include <string>
+#include <bitset>
