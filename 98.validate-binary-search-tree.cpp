@@ -26,10 +26,10 @@ public:
         if((long long)node->val >= max_val || (long long)node->val <= min_val)
             return false;
         if(node->left)
-            if(!isValidBSTrec(node->left, min_val, min((long long)node->val, max_val)))
+            if(!isValidBSTrec(node->left, min_val, (long long)node->val))
                 return false;
         if(node->right)
-            if(!isValidBSTrec(node->right, max(min_val, (long long)node->val), max_val))
+            if(!isValidBSTrec(node->right, (long long)node->val, max_val))
                 return false;
         return true;
     }
