@@ -8,9 +8,9 @@
 class Solution {
 public:
     string robotWithString(string s) {
-        vector<vector<int>> pos(26);
+        vector<int> pos(26, -1);
         for(int i = 0; i < s.length(); i++) {
-            pos[s[i] - 'a'].push_back(i);
+            pos[s[i] - 'a'] = i;
         }
 
         string ans;
@@ -18,23 +18,18 @@ public:
         int j = 0;
         stack<char> t;
         for(int i = 0; i < 26 && j < s.length(); i++) {
-            if(pos[i].size() == 0) continue;
-            for(int k = 0; k < pos[i].size(); k++) {
-                if(j > pos[i][k]){
-                    while(t.empty() == false && t.top() <= char(i + 'a')) {
-                        ans.push_back(t.top());
-                        t.pop();
-                    }
-                }
-                else {
-                    while(j <= pos[i][k]) {
-                        t.push(s[j]);
-                        j++;
-                    }
+            if(pos[i] == -1) continue;
+            while(t.empty() == false && t.top() <= char(i + 'a')) {
+                ans.push_back(t.top());
+                t.pop();
+            }
+            while(j <= pos[i]) {
+                t.push(s[j]);
+                j++;
+                if(t.top() == char(i + 'a')) {
                     ans.push_back(t.top());
                     t.pop();
                 }
-
             }
         }
         while(!t.empty()){
